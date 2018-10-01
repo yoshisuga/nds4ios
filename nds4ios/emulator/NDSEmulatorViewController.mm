@@ -259,7 +259,12 @@ const float textureVert[] =
         rect = CGRectMake(self.view.bounds.size.width - (self.view.bounds.size.width + self.view.bounds.size.height/1.5)/2, 0, self.view.bounds.size.height/1.5, self.view.bounds.size.height);
         if (extWindow) rect.size.height /= 2;
     } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        rect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width*1.5);
+        CGFloat y = 0.0f;
+        if (@available(iOS 11, *)) {
+            UIEdgeInsets inset = [[UIApplication sharedApplication] delegate].window.safeAreaInsets;
+            y = inset.top;
+        }
+        rect = CGRectMake(0, y, self.view.bounds.size.width, self.view.bounds.size.width*1.5);
         if (extWindow) rect.size.height /= 2;
     }
     
